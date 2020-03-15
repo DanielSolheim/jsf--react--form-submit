@@ -1,42 +1,23 @@
-import React from 'react';
+import React from "react";
+import { useForm } from "react-hook-form"
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
-export default function Contact() {
+function Contact() {
+    const { register, handleSubmit, errors } = useForm();
 
+    function onSubmit(data) {
+        console.log("data", data);
+    }
 
-    function handleSubmit(event){
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input name="firstName" placeholder="First name" ref={register({ required: true })} />
+            {errors.firstName && <p>First name is required</p>}
 
-      event.preventDefault();
-
-
-      var eventItems = event.target.elements;
-      console.log(eventItems);
-
-      for (var i = 0; i < eventItems.length; i++){
-        console.log(eventItems[i].name);
-        console.log(eventItems[i].value); 
-      }
-      //var firstName = document.querySelector(".submit-firstName");
-      //var lastName = document.querySelector(".submit-LastName")
-      //      if(firstName.value === "" || lastName.value === "" ) {
-      //        alert("please enter some info");
-      //      }
-    };
-
-  return (
-    <div className="Contact">
-      <h1>Contact Page</h1>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>First Name   </label>
-          <input className="submit-firstName" name="firstName" placeholder="First name" />
-        </div>
-        <div>
-          <label>Last Name   </label>
-          <input className="submit-LastName" name="lastName" placeholder="Last Name" />
-        </div>
-        <input type="submit" />
-      </form>
-    </div>
-  );
+            <input type="submit" />
+        </form>
+    );
 }
+
+export default Contact;
